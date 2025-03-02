@@ -11,7 +11,7 @@ export default function Profile(){
 }
 
 function AuthView(){
-    const {user, setUser} = useContext(AppContext);
+    const {user, setUser, request} = useContext(AppContext);
     const [name, setName] = useState(user.name);
     const [phone, setPhone] = useState(user.phone);
     const [address, setAddress] = useState(user.address);
@@ -21,7 +21,27 @@ function AuthView(){
     // );
 
     const saveChanges = () => {
-        console.log(user.userId, name, phone);
+        request('/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+
+            },
+            body: JSON.stringify({
+                "userId": user.userId, 
+                name,
+                "email": user.email, 
+                "login": user.login, 
+                phone,
+                address,
+                birthday
+            })
+        }).then(data => {
+            console.log(data);
+            setUser(data);  // тут оновлюємо юзера з отриманими даними
+        }).catch(err => console.log(err));
+
+        console.log(user.userId, name, user.email, user.login, phone, address, birthday);
     };
     const deleteProfile = () => {
         console.log(user.userId, 'DEL');
