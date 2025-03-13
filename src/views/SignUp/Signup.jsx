@@ -15,7 +15,7 @@ export default function Signup(){
   const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [login, setLogin] = useState("");
+  //const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phoneNumbers, setPhoneNumbers] = useState([""]);
@@ -24,7 +24,7 @@ export default function Signup(){
     birthDate: "",
     email: "",
     address: "",
-    login: "",
+    //login: "",
     password: "",
     confirmPassword: "",
     general: ""
@@ -49,7 +49,7 @@ export default function Signup(){
     let validErrors = {
       name: "",
       birthDate: "",
-      login: "",
+      //login: "",
       email: "",
       address: "",
       password: "",
@@ -57,7 +57,7 @@ export default function Signup(){
       general: ""
     }
 
-    if(!name || !login || !email || !password || !confirmPassword){
+    if(!name || !email || !password || !confirmPassword){
       isFormValid = false;
       validErrors.general = "Потрібно заповнити ці поля: ім'я, логін, email, пароль з підтвердженням";
     }
@@ -67,10 +67,10 @@ export default function Signup(){
       validErrors.name = "Ім'я повинно містити не менше двох символів!";
     }
 
-    if(login.length < 2){
-      isFormValid = false;
-      validErrors.login = "Логін повинен містити не менше двох символів!";
-    }
+    // if(login.length < 2){
+    //   isFormValid = false;
+    //   validErrors.login = "Логін повинен містити не менше двох символів!";
+    // }
 
     if(!emailRegex.test(email)){
       isFormValid = false;
@@ -104,7 +104,7 @@ export default function Signup(){
       //birthDate: formattedBirthDate,
       email,
       address,
-      login,
+      //login,
       password,
       confirmPassword,
       phoneNumbers: validPhoneNumbers
@@ -174,14 +174,14 @@ export default function Signup(){
         placeholder="Введіть адресу"
       />
 
-      <br/>
+      {/* <br/>
       <input
         type='text' className="form-control"
         value={login}
         onChange = {e=>setLogin(e.target.value)}
         placeholder='Введіть логін'
       />
-      {errors.login && <p>{errors.login}</p>}
+      {errors.login && <p>{errors.login}</p>} */}
 
       <br/>
       <input

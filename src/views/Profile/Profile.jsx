@@ -13,6 +13,7 @@ export default function Profile(){
 function AuthView(){
     const {user, setUser, request} = useContext(AppContext);
     const [name, setName] = useState(user.name);
+    const [email, setEmail] = useState(user.email);
     const [phone, setPhone] = useState(user.phone);
     const [address, setAddress] = useState(user.address);
     const [birthday, setBirthday] = useState(user.birthday);
@@ -30,8 +31,8 @@ function AuthView(){
             body: JSON.stringify({
                 "userId": user.userId, 
                 name,
-                "email": user.email, 
-                "login": user.login, 
+                //"email": user.email,
+                email,
                 phone,
                 address,
                 birthday
@@ -41,9 +42,17 @@ function AuthView(){
             setUser(data);  // тут оновлюємо юзера з отриманими даними
         }).catch(err => console.log(err));
 
-        console.log(user.userId, name, user.email, user.login, phone, address, birthday);
+        console.log(user.userId, name, email, phone, address, birthday);
     };
     const deleteProfile = () => {
+        if(confirm("Такі да?")){
+                request('/user?id=' + user.userId, {
+                method: 'DELETE',
+            }).then(data => {
+                console.log(data);
+                setUser(null);
+            }).catch(err => console.log(err));
+        }
         console.log(user.userId, 'DEL');
     };
     console.log(user); 
@@ -57,8 +66,12 @@ function AuthView(){
             onChange={e => setName(e.target.value)}
         />
             
-        <p>Email: {user.email}</p>
-        <p>Login: {user.login}</p>
+        <p>Email: </p>
+        <input
+            type="text"
+            value={email}
+            onChange={ e => setEmail(e.target.value) }
+        />
 
         <p>Телефон: </p>
         <input 
