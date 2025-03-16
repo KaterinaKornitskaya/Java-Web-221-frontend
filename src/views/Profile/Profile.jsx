@@ -11,7 +11,7 @@ export default function Profile(){
 }
 
 function AuthView(){
-    const {user, setUser, request} = useContext(AppContext);
+    const {user, setUser, request, setAccessToken, accessToken} = useContext(AppContext);
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [phone, setPhone] = useState(user.phone);
@@ -51,6 +51,7 @@ function AuthView(){
             }).then(data => {
                 console.log(data);
                 setUser(null);
+                setAccessToken(null);
             }).catch(err => console.log(err));
         }
         console.log(user.userId, 'DEL');
@@ -58,7 +59,9 @@ function AuthView(){
     console.log(user); 
 
     return(
-        <>
+    <>
+        
+        <i>{JSON.stringify(accessToken)}</i>
         <p>Справжнє ім'я: </p>
         <input 
             type="text" 
@@ -105,7 +108,8 @@ function AuthView(){
 
         <br/>
         <Link to="/">Home</Link>
-        </>
+        
+    </>
     );
 }
 

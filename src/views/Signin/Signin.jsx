@@ -8,7 +8,7 @@ export default function Signin(){
     const [login, setLogin] = useState("alex");
     const [password, setPassword] = useState("49Alex");
     // забираємо з AppContext те, що він провайдить
-    const {user, setUser, request} = useContext(AppContext);
+    const {setAccessToken, setUser, request} = useContext(AppContext);
     const navigate = useNavigate();
 
     const sendForm = () => {
@@ -49,7 +49,10 @@ export default function Signin(){
                 'Authorization': 'Basic ' + credentials,
             },
         }).then(data => {
-            setUser(data);
+            setUser(data.user);
+            setAccessToken(data.accessToken);
+            console.log("TOKEN")
+            console.log(data.accessToken.accessTokenId)
             navigate('/profile');
         }).catch(console.log);
     }
